@@ -1,0 +1,354 @@
+create soma, initial, dend[4], unmyelin, axon[5], node[4], hillock
+
+connect dend[0](0), soma(0)
+connect dend[1](0), soma(0)
+connect dend[2](0), soma(0)
+connect dend[3](0), soma(0)
+connect hillock(0), soma(1)
+connect initial(0), hillock(1)
+connect unmyelin(0), initial(1)
+connect axon[0](0), unmyelin(1)
+connect node[0](0), axon[0](1)
+connect axon[1](0), node[0](1)
+connect node[1](0), axon[1](1)
+connect axon[2](0), node[1](1)
+connect node[2](0), axon[2](1)
+connect axon[3](0), node[2](1)
+connect node[3](0), axon[3](1)
+connect axon[4](0), node[3](1)
+
+v_init = -54
+tstop = 7000
+celsius = 23
+
+g0_kir2 = .00006
+g1_kir2 = .0006
+g0_hcn12 = 0.0012
+g1_hcn12 = 0.0045
+g0_hcn2 = 6e-6
+g1_hcn2 = 6e-5
+
+g0_na1 = 0.08
+g1_na1 = 0.008
+g0_na6 = 0.02
+g1_na6 = 0.002
+
+access soma
+
+soma {
+   	L = 25
+	diam = 25
+	cm = 0.75
+	insert hcn12_gp
+		gbar_hcn12_gp = 0
+		ehcn_hcn12_gp = -20
+	insert hcn2_gp
+		gbar_hcn2_gp = 0
+		ehcn_hcn2_gp = -20
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+	insert na1_gp
+		gbar_na1_gp = 0.2
+	insert na6_gp
+		gbar_na6_gp = 0.08
+	insert kv1_gp
+		gbar_kv1_gp = 0.008
+	insert kv2_gp
+		gbar_kv2_gp = 10
+	insert kv3_gp
+		gbar_kv3_gp = 0.1
+	insert kv4_gp
+		gbar_kv4_gp = 0.001
+	insert kir2_gp
+		gbar_kir2_gp = 0
+	insert kcnq_gp
+		gbar_kcnq_gp = 0
+	insert bk_gp
+		gbar_bk_gp = 0
+	insert sk_gp
+		gbar_sk_gp = 0.05
+	insert cal_gp
+		gbar_cal_gp = 0
+	insert cap_gp
+		gbar_cap_gp = 2e-06
+	insert ca_gp
+}
+
+hillock {nseg = 3
+   	L = 15
+	diam = 3.2
+	cm = 0.75
+	insert hcn12_gp
+		gbar_hcn12_gp = 0
+		ehcn_hcn12_gp = -20
+	insert hcn2_gp
+		gbar_hcn2_gp = 0
+		ehcn_hcn2_gp = -20
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+	insert na1_gp
+		gbar_na1_gp = 0.1
+	insert na6_gp
+		gbar_na6_gp = 0.1
+	insert kv1_gp
+		gbar_kv1_gp = 0.01
+	insert kv2_gp
+		gbar_kv2_gp = 2
+	insert kv3_gp
+		gbar_kv3_gp = 0.03
+	insert kv4_gp
+		gbar_kv4_gp = 0
+	insert kir2_gp
+		gbar_kir2_gp = 0
+	insert kcnq_gp
+		gbar_kcnq_gp = 0
+	insert bk_gp
+		gbar_bk_gp = 0
+	insert sk_gp
+		gbar_sk_gp = 0
+	insert cal_gp
+		gbar_cal_gp = 0
+	insert cap_gp
+		gbar_cap_gp = 0
+	insert ca_gp
+}
+
+initial {
+   	L = 30
+	diam = 1.4
+	cm = 0.75
+	insert hcn12_gp
+		gbar_hcn12_gp = 0
+		ehcn_hcn12_gp = -20
+	insert hcn2_gp
+		gbar_hcn2_gp = 0
+		ehcn_hcn2_gp = -20
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -20
+	insert na1_gp
+		gbar_na1_gp = 0
+	insert na6_gp
+		gbar_na6_gp = 2
+	insert kv1_gp
+		gbar_kv1_gp = 0.015
+	insert kv2_gp
+		gbar_kv2_gp = 5
+	insert kv3_gp
+		gbar_kv3_gp = 0.1
+	insert kv4_gp
+		gbar_kv4_gp = 0
+	insert kir2_gp
+		gbar_kir2_gp = 0
+	insert kcnq_gp
+		gbar_kcnq_gp = 0.001
+	insert bk_gp
+		gbar_bk_gp = 0
+	insert sk_gp
+		gbar_sk_gp = 0.0
+	insert cal_gp
+		gbar_cal_gp = 0
+	insert cap_gp
+		gbar_cap_gp = 0
+	insert ca_gp
+}
+
+forsec "dend" {
+   	nseg = 9
+   	L = 800
+	diam = 1
+	cm = 0.75
+	insert hcn12_gp
+		gbar_hcn12_gp(0:1) = g0_hcn12:g1_hcn12
+		ehcn_hcn12_gp = -20
+	insert hcn2_gp
+		gbar_hcn2_gp(0:1) = g0_hcn2:g1_hcn2
+		ehcn_hcn2_gp = -20
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+	insert na1_gp
+		gbar_na1_gp(0:1) = g0_na1:g1_na1
+	insert na6_gp
+		gbar_na6_gp(0:1) = g0_na6:g1_na6
+	insert kv1_gp
+		gbar_kv1_gp = 0
+	insert kv2_gp
+		gbar_kv2_gp = 0
+	insert kv3_gp
+		gbar_kv3_gp = 0
+	insert kv4_gp
+		gbar_kv4_gp = 0.002
+	insert kir2_gp
+		gbar_kir2_gp(0:1) = g0_kir2:g1_kir2
+	insert kcnq_gp
+		gbar_kcnq_gp = 0
+	insert bk_gp
+		gbar_bk_gp = 0
+	insert sk_gp
+		gbar_sk_gp = 0.008
+	insert cal_gp
+		gbar_cal_gp = 3e-05
+	insert cap_gp
+		gbar_cap_gp = 0
+	insert ca_gp
+}
+
+unmyelin {
+	L = 50
+	diam = 1
+	cm = 0.75
+	insert na1_gp
+		gbar_na1_gp = 0
+	insert na6_gp
+		gbar_na6_gp = 0
+	insert kv1_gp
+		gbar_kv1_gp = 0
+	insert kv2_gp
+		gbar_kv2_gp = 0
+	insert kv3_gp
+		gbar_kv3_gp = 0
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+}
+
+forsec "axon" {
+	L = 100
+	diam = 1
+	cm = 0.04
+	insert na1_gp
+		gbar_na1_gp = 0
+	insert na6_gp
+		gbar_na6_gp = 0
+	insert kv1_gp
+		gbar_kv1_gp = 0
+	insert kv2_gp
+		gbar_kv2_gp = 0
+	insert kv3_gp
+		gbar_kv3_gp = 0
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+}
+
+forsec "node" {
+	L = 1
+	diam = 1
+	cm = 0.75
+	insert na1_gp
+		gbar_na1_gp = 0
+	insert na6_gp
+		gbar_na6_gp = 0.1
+	insert kv1_gp
+		gbar_kv1_gp = 0.06
+	insert kv2_gp
+		gbar_kv2_gp = 0
+	insert kv3_gp
+		gbar_kv3_gp = 0.6
+	insert kcnq_gp
+		gbar_kcnq_gp = 0
+	insert leak_gp
+		gbar_leak_gp = 0
+		e_leak_gp = -65
+}
+
+forall {
+	ek = -77
+	ena = 50
+	Ra = 150
+}
+
+cvode.active(1)
+
+access soma
+objref iramp
+iramp = new IRamp(0.5)
+iramp.del = 6000
+iramp.dur = 1000
+iramp.amp0 = 0
+iramp.amp1 = 1
+
+// *** Voltage Plot Panel ***
+
+objref VoltagePlot
+	VoltagePlot = new Graph(0)
+	VoltagePlot.size(0,7000,-80,40)
+	VoltagePlot.view(0,-80,7000,120,650,300,400,200)
+	graphList[0].append(VoltagePlot)
+	VoltagePlot.save_name("graphList[0].")
+	VoltagePlot.addexpr("soma.v",1,1,0.8,0.9,2)
+
+
+
+// *** Run Panel ***
+
+		t = 0
+		dt = 0.1
+		realtime = 0
+		na16remove = 0
+		na16replace = 0
+
+objref RunPanel
+RunPanel = new HBox()
+RunPanel.intercept(1)
+	xpanel("")
+		xbutton("Init & Run","run()")
+		xbutton("Stop","stoprun=1")
+		xlabel("")
+		xstatebutton("Remove Na1.6",&na16remove,"remove16()")
+		xlabel("Remove Na1.6 from all locations")
+		xlabel("")
+		xstatebutton("Replace Na1.6",&na16replace,"replace16()")
+		xlabel("Replace Na1.6 with Na1.1")
+	xpanel()
+	xpanel("")
+		xvalue("t","t", 2 )
+		xvalue("Real Time","realtime", 0,"", 0, 1 )
+		xlabel("")
+		xvalue("gNa 1.1 (soma)","soma.gbar_na1_gp",1)
+		xlabel("")
+		xvalue("gNa 1.6 (soma)","soma.gbar_na6_gp",1)
+		xlabel("The sodium conductances change throughout.")
+		xlabel("Use the somatic values to keep track of changes.")
+	xpanel()
+RunPanel.intercept(0)
+RunPanel.map("Run Panel",0,300,500,200)
+
+
+// *** REMOVE16() ***
+proc remove16() {
+	if (soma.gbar_na6_gp == 0.08) {
+		na16remove = 1
+		forall gbar_na6_gp = 0
+	} else {
+		na16remove = 0
+		soma.gbar_na6_gp = 0.08
+		hillock.gbar_na6_gp = 0.1
+		initial.gbar_na6_gp = 2
+		forsec "dend" {gbar_na6_gp(0:1) = 0.02:0.002}
+		forsec "node" {gbar_na6_gp = 0.1}
+	}
+}
+
+// *** REPLACE16() ***
+proc replace16() {
+	if (soma.gbar_na1_gp == 0.2) {
+		na16replace = 1
+		soma.gbar_na1_gp = 0.28
+		hillock.gbar_na1_gp = 0.2
+		initial.gbar_na1_gp = 2
+		forsec "dend" {gbar_na1_gp(0:1) = 0.1:0.01}
+		forsec "node" {gbar_na1_gp = 0.1}
+
+	} else {
+		na16replace = 0
+		soma.gbar_na1_gp = 0.2
+		hillock.gbar_na1_gp = 0.1
+		initial.gbar_na1_gp = 0
+		forsec "dend" {gbar_na1_gp(0:1) = 0.08:0.008}
+		forsec "node" {gbar_na1_gp = 0}
+	}
+}

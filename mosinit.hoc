@@ -1,0 +1,19 @@
+//moddir mod
+{load_file("nrngui.hoc")}
+// nrn_load_dll("mod/nrnmech.dll")
+
+
+{xpanel("Figure Chooser")}
+{	xbutton("Figure 9","loadfig9()")}
+{	xbutton("Figure 10","loadfig10()")}
+{xpanel(200,200)}
+
+
+proc loadfig9() {
+	load_file("fig9.hoc")
+}
+
+
+proc loadfig10() {
+	load_file("fig10.hoc")
+}
