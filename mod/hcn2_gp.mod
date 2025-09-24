@@ -3,7 +3,7 @@ NEURON {
 	NONSPECIFIC_CURRENT i
 	RANGE i, ehcn, g, gbar
 	GLOBAL a0, b0, ah, bh, ac, bc, aa0, ba0
-	GLOBAL aa0, ba0, aah, bah, aac, bac
+	GLOBAL aah, bah, aac, bac
 	GLOBAL kon, koff, b, bf, ai, gca, shift
 }
 
